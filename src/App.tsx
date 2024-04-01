@@ -1,27 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.sass';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faQuoteLeft} from '@fortawesome/free-solid-svg-icons';
 import {faTwitter, faTumblr} from "@fortawesome/free-brands-svg-icons";
-
+import randomQuote from "./RandomQuoteGenerator"
+import setColors from "./SetColors"
 
 function App() {
+
+  const [currentQuote, setQuote] = useState(randomQuote());
+
+  const handleClick = () => {
+    setColors();
+    setQuote(randomQuote());
+  }
+
+  useEffect(()=>setColors());
+
   return (
-    <div className="App container">
-      <div id="quote-div">
+    <div id="app" className="App container">
+      <div id="quote-box">
         <FontAwesomeIcon icon={faQuoteLeft} id="quote-icon" className="icon" />
-        <h4 id="quote">Happiness is not something readymade. It comes from your own actions.</h4>
+        <span id="text">{currentQuote.quote}</span>
+        <p id="author">- {currentQuote.author}</p>
       </div>
-      <p id="quoter" className="border">- Aristod</p>
       <div id="lower-menu">
-        <a>
-          <FontAwesomeIcon icon={faTwitter} className="social-media-icon border" />
+        <a id='tweet-quote' href={`https://twitter.com/intent/tweet?text=${currentQuote.quote}&hashtags=Quotes`} target="_blank" rel="noreferrer">
+          <FontAwesomeIcon icon={faTwitter} className="social-media-icon" />
         </a>
-        <a>
-          <FontAwesomeIcon icon={faTumblr} className="social-media-icon border" />
+        <a id='tumblr-icon' href='https://www.tumblr.com/new/text'>
+          <FontAwesomeIcon icon={faTumblr} className="social-media-icon" />
         </a>
-        <button id="btn">New quote</button>
+        <button id="new-quote" className='btn' onClick={handleClick}>New quote</button>
       </div>
     </div>
   );

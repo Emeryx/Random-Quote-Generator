@@ -19,8 +19,8 @@ function App() {
   useEffect(()=>setColors());
 
   return (
-    <div id="app" className="App container">
-      <div id="quote-box">
+    <div id="quote-box" className="App container">
+      <div id="inner-quote-box">
         <FontAwesomeIcon icon={faQuoteLeft} id="quote-icon" className="icon" />
         <span id="text">{currentQuote.quote}</span>
         <p id="author">- {currentQuote.author}</p>
